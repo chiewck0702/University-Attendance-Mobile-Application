@@ -1,4 +1,4 @@
-# Universiti Attendance Mobile Application
+# University Attendance Mobile Application
 A university student attendance management mobile app developed as a Diploma Final Year Project (FYP).
 
 Tech Stack:
