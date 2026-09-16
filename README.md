@@ -111,22 +111,24 @@ message.From.Add(new MailboxAddress("UTeM Student Attendance App", "your_email@g
 ## 📁 Project Structure
 ```text
 University-Attendance-Mobile-Application/
-├── FYP_App/                    # Xamarin Android mobile app
+├── Database/                   
+│   └── UniversityAttendanceDB.sql     # SQL script for creating database schema
+├── FYP_App/                           # Xamarin Android mobile app
 │   └── FYP_App/
-│       ├── FYP_App/            # Shared code
-│       │   ├── Models/         # Data models
-│       │   ├── Service/        # API services
-│       │   └── Views/          # Pages
-│       │       ├── Admin/      # Admin pages
-│       │       ├── Lecturer/   # Lecturer pages
-│       │       ├── Student/    # Student pages
-│       │       └── Report/     # Report pages
-│       └── FYP_App.Android/    # Android-specific code
-├── WebApi2/                    # ASP.NET Core Web API
+│       ├── FYP_App/                   # Shared code
+│       │   ├── Models/                # Data models
+│       │   ├── Service/               # API services
+│       │   └── Views/                 # Pages
+│       │       ├── Admin/             # Admin pages
+│       │       ├── Lecturer/          # Lecturer pages
+│       │       ├── Student/           # Student pages
+│       │       └── Report/            # Report pages
+│       └── FYP_App.Android/           # Android-specific code
+├── WebApi2/                           # ASP.NET Core Web API
 │   └── WebApi2/
-│       ├── Controllers/        # API controllers
-│       ├── Models/             # Data models
-│       └── appsettings.json    # Configuration file
+│       ├── Controllers/               # API controllers
+│       ├── Models/                    # Data models
+│       └── appsettings.json           # Configuration file
 ├── .gitignore
 └── README.md
 ```
