@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FYP_App.Views.Subject.EditSubjectPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <Frame BackgroundColor="#2196F3" HeightRequest="50" Padding="5">
+                <Image x:Name="backIcon" Margin="10, 0" VerticalOptions="Center" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapBackButton_Tapped" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Frame>
+            <Label Text="Edit Subject" TextColor="Black" FontAttributes="Bold" FontSize="25" HorizontalOptions="Center" Margin="30"/>
+
+            <ActivityIndicator x:Name="loadingIndicator"
+                IsVisible="False"
+                IsRunning="False"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" />
+            
+            <ScrollView x:Name="contentScrollview">
+                <Grid VerticalOptions="Start" RowSpacing="10" ColumnDefinitions="*, 1.5*, 0.6*" Margin="20" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+                    <Label Text="Subject code: " TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                    <Entry x:Name="subjectEntry" IsReadOnly="True" Grid.Column="1"/>
+
+                    <Label Text="Subject name:" TextColor="Black" FontSize="18" Grid.Row="1"/>
+                    <Entry x:Name="subjectNameEntry" Grid.ColumnSpan="2" TextColor="Black" VerticalOptions="Center" Grid.Row="1" Grid.Column="1"/>
+
+                    <Label Text="Faculty: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="2"/>
+                    <Picker x:Name="facultyPicker" Grid.ColumnSpan="2" Title="Select an option" SelectedIndexChanged="facultyPicker_SelectedIndexChanged" Grid.Row="2" Grid.Column="1"/>
+
+                    <Label Text="Course: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="3"/>
+                    <Picker x:Name="coursePicker" Grid.ColumnSpan="2" Title="Select an option" SelectedIndexChanged="coursePicker_SelectedIndexChanged" Grid.Row="3" Grid.Column="1"/>
+
+                    <Label Text="Year of Student: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="4"/>
+                    <Picker x:Name="studentYearPicker" Title="Select an option" SelectedIndexChanged="studentYearPicker_SelectedIndexChanged" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"/>
+
+                    <Label Text="Active Semester: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="5"/>
+                    <Picker x:Name="activeSemesterPicker" Title="Select an option" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"/>
+
+                    <Label Text="Class: " Grid.Row="6" Grid.ColumnSpan="3" TextColor="Black" FontSize="18"/>
+                    <ListView x:Name="classListView" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" HeightRequest="300">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal">
+                                        <CheckBox IsChecked="{Binding IsSelected}" CheckedChanged="CheckBoxClass_CheckedChanged"/>
+                                        <Label Text="{Binding ClassName}" TextColor="Black" FontSize="18" VerticalTextAlignment="Center"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <Label Text="Lecturer Option: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="7"/>
+                    <Frame Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Padding="10" HasShadow="False">
+                        <StackLayout Orientation="Horizontal" x:Name="lecturerOptionRadioButtonGroup">
+                            <RadioButton Content="Single" x:Name="singleLecturerRB" GroupName="lecturerOption" CheckedChanged="RadioButtonLecturerOption_CheckedChanged"/>
+                            <RadioButton Content="Multiple" x:Name="multipleLecturerRB" GroupName="lecturerOption" CheckedChanged="RadioButtonLecturerOption_CheckedChanged"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame x:Name="singleLecturer" Padding="0" Grid.Row="8" Grid.ColumnSpan="3" HasShadow="False">
+                        <Grid ColumnDefinitions="*, 1.5*, 0.5*">
+                            <Label Text="Lecturer Name: " TextColor="Black" FontSize="18"/>
+                            <StackLayout Grid.Column="1" Grid.ColumnSpan="2">
+                                <Entry x:Name="lecturerNameEntry" Placeholder="Lecturer name / ID" TextChanged="lecturerNameEntry_TextChanged"/>
+                                <ListView x:Name="potentialLecturerNameList" IsVisible="false" HeightRequest="100">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <Label Text="{Binding LecturerName}" TextColor="Black" FontSize="18">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Tapped="TapLecturerNameGestureRecognizer_Tapped" NumberOfTapsRequired="2"/>
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackLayout>
+
+                            <Label Text="Class: " Grid.Row="1" TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                            <Label x:Name="singleLecturerClassLabel" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                            <Label Text="Session: Both Lecture and Lab" Grid.Row="2" Grid.ColumnSpan="3" TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                        </Grid>
+                    </Frame>
+                    <Frame x:Name="multipleLecturer" Padding="5" Grid.Row="8" Grid.ColumnSpan="3" HasShadow="False">
+                        <Grid ColumnDefinitions="*, 1.5*, 0.5*" RowDefinitions="Auto, Auto, Auto, *">
+                            <Label Text="Lecturer number: " TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                            <Picker x:Name="lecturerNumberPicker" Title="Select an option" SelectedIndexChanged="lecturerNumberPicker_SelectedIndexChanged" Grid.Column="1" Grid.ColumnSpan="2"/>
+
+                            <Grid x:Name="lecturerNumberPickerGrid" Grid.Row="1" Grid.ColumnSpan="3" ColumnDefinitions="*, 1.5*, 0.5*" RowDefinitions="Auto, Auto, Auto">
+                                <Label Text="Lecturer 1: " TextColor="Black" FontSize="18"/>
+                                <StackLayout Grid.Column="1" Grid.ColumnSpan="2">
+                                    <Entry x:Name="lecturerNameEntry1" Placeholder="Lecturer name / ID" TextChanged="lecturerNameEntry1_TextChanged"/>
+                                    <ListView x:Name="potentialLecturerNameList1" HeightRequest="100">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <Label Text="{Binding LecturerName}" TextColor="Black" FontSize="18">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Tapped="TapLecturerNameGestureRecognizer1_Tapped" NumberOfTapsRequired="2"/>
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackLayout>
+
+                                <Label Text="Lecturer 2:" Grid.Row="1" TextColor="Black" FontSize="18"/>
+                                <StackLayout Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                                    <Entry x:Name="lecturerNameEntry2" Placeholder="Lecturer name / ID" TextChanged="lecturerNameEntry2_TextChanged"/>
+                                    <ListView x:Name="potentialLecturerNameList2" IsVisible="False" HeightRequest="100">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <Label Text="{Binding LecturerName}" TextColor="Black" FontSize="18">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Tapped="TapLecturerNameGestureRecognizer2_Tapped" NumberOfTapsRequired="2"/>
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackLayout>
+
+                                <Label x:Name="labelLecturerNameEntry3" IsVisible="False" Text="Lecturer 3:" Grid.Row="2" TextColor="Black" FontSize="18"/>
+                                <StackLayout Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+                                    <Entry x:Name="lecturerNameEntry3" IsVisible="False" Placeholder="Lecturer name / ID" TextChanged="lecturerNameEntry3_TextChanged"/>
+                                    <ListView x:Name="potentialLecturerNameList3" IsVisible="False" HeightRequest="100">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <Label Text="{Binding LecturerName}" TextColor="Black" FontSize="18">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Tapped="TapLecturerNameGestureRecognizer3_Tapped" NumberOfTapsRequired="2"/>
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackLayout>
+                            </Grid>
+
+                            <Frame Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="White" BorderColor="Black">
+                                <Label Text="Class and Session Assignment" TextColor="Black" FontSize="18" VerticalTextAlignment="Center"/>
+                            </Frame>
+                            <ListView Grid.Row="3" Grid.ColumnSpan="3" x:Name="classSessionAssignmentListView" HasUnevenRows="True" HeightRequest="200">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Frame BackgroundColor="White" BorderColor="Black" Padding="15">
+                                                <Grid ColumnDefinitions="*, 2*" RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+                                                    <Label Text="{Binding ClassName}" TextColor="Black" FontSize="18"/>
+
+                                                    <Label Text="Lecturer:" TextColor="Black" FontSize="18" Grid.Row="1"/>
+                                                    <Picker ItemsSource="{Binding LecturerNameList1}" ItemDisplayBinding="{Binding LecturerName}" SelectedIndex="{Binding SelectedLecturerIndex1}" Title="Select an option" SelectedIndexChanged="lecturerNamePicker4_SelectedIndexChanged" Grid.Row="1" Grid.Column="1"/>
+
+                                                    <Label Text="Session:" TextColor="Black" FontSize="18" Grid.Row="2"/>
+                                                    <StackLayout Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2">
+                                                        <RadioButton Content="Both" IsChecked="{Binding isCheckedBoth}" GroupName="{Binding groupNameRBSession1}" CheckedChanged="RadioButtonSessionOption_CheckedChanged"/>
+                                                        <RadioButton Content="Lecture" IsChecked="{Binding isCheckedLecture}" GroupName="{Binding groupNameRBSession1}" CheckedChanged="RadioButtonSessionOption_CheckedChanged"/>
+                                                        <RadioButton Content="Lab" IsChecked="{Binding isCheckedLab}" GroupName="{Binding groupNameRBSession1}" CheckedChanged="RadioButtonSessionOption_CheckedChanged"/>
+                                                    </StackLayout>
+
+                                                    <StackLayout Margin="0, 10" IsVisible="{Binding isVisiblelayoutSession2}" Grid.Row="4" Grid.ColumnSpan="2">
+                                                        <Grid ColumnDefinitions="*, 2*" RowDefinitions="Auto, Auto, Auto">
+                                                            <Label Text="Lecturer:" TextColor="Black" FontSize="18"/>
+                                                            <Label Text="{Binding LecturerName2}" IsVisible="{Binding isVisibleLecturerLabel}" TextColor="Black" FontSize="18" Grid.Column="1"/>
+                                                            <Picker ItemsSource="{Binding LecturerNameList2}" ItemDisplayBinding="{Binding LecturerName}" SelectedIndex="{Binding SelectedLecturerIndex2}" IsVisible="{Binding isVisibleLecturerPicker}" Title="Select an option" SelectedIndexChanged="lecturerNamePicker5_SelectedIndexChanged" Grid.Column="1"/>
+
+                                                            <Label Text="Session:" TextColor="Black" FontSize="18" Grid.Row="1"/>
+                                                            <StackLayout Orientation="Horizontal" Grid.Row="2" IsEnabled="false">
+                                                                <RadioButton Content="Both" IsChecked="false" GroupName="{Binding groupNameRBSession2}"/>
+                                                                <RadioButton Content="Lecture" IsChecked="{Binding isCheckedLecture2}" GroupName="{Binding groupNameRBSession2}"/>
+                                                                <RadioButton Content="Lab" IsChecked="{Binding isCheckedLab2}" GroupName="{Binding groupNameRBSession2}"/>
+                                                            </StackLayout>
+                                                        </Grid>
+                                                    </StackLayout>
+                                                </Grid>
+                                            </Frame>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </Frame>
+
+                    <Frame Grid.Row="9" Grid.ColumnSpan="3" BackgroundColor="#37D13F" Padding="10" Margin="0, 10, 0, 30">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapEditSubjectGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
+                        </Frame.GestureRecognizers>
+                        <Label Text="Edit Subject" TextColor="White" FontSize="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    </Frame>
+                </Grid>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

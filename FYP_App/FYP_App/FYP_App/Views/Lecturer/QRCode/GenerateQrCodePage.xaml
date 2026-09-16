@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FYP_App.Views.GenerateQrCodePage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <Label Text="Generate QR Code" TextColor="Black" FontAttributes="Bold" FontSize="25" HorizontalOptions="Center" Margin="30"/>
+
+            <Grid VerticalOptions="Start" ColumnDefinitions="*, 1.5*" Margin="20" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+                <StackLayout Grid.ColumnSpan="2" Orientation="Horizontal">
+                    <Image x:Name="dateIcon" WidthRequest="50" HeightRequest="50" Margin="0, 0, 10, 0"/>
+                    <Label x:Name="todayDate" TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <Label Text="Subject code: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="1"/>
+                <Picker x:Name="subjectPicker" Title="Select an option" SelectedIndexChanged="subjectPicker_SelectedIndexChanged" Grid.Row="1" Grid.Column="1"></Picker>
+
+                <Label Text="Subject name:" TextColor="Black" FontSize="18" Grid.Row="2"/>
+                <Label x:Name="subjectName" TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="2" Grid.Column="1"/>
+
+                <Label Text="Session: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="3"/>
+                <Picker x:Name="sessionPicker" Title="Select an option" SelectedIndexChanged="sessionPicker_SelectedIndexChanged" Grid.Row="3" Grid.Column="1"/>
+                
+                <Label Text="Class: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="4"/>
+                <Picker x:Name="classPicker" Title="Select an option" Grid.Row="4" Grid.Column="1"/>
+                
+                <Label Text="Start time: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="5"/>
+                <Picker x:Name="startTimePicker" Title="Select an option" SelectedIndexChanged="startTimePicker_SelectedIndexChanged" Grid.Row="5" Grid.Column="1"/>
+
+                <Label Text="End time: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="6"/>
+                <Picker x:Name="endTimePicker" Title="Select an option" Grid.Row="6" Grid.Column="1"/>
+
+                <Frame Grid.Row="7" Grid.ColumnSpan="2" BackgroundColor="#7192F1" Padding="10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGenerateQrCodeButton_Tapped" NumberOfTapsRequired="1"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Image x:Name="qrIcon" WidthRequest="45" HeightRequest="45" Margin="10, 0"/>
+                        <Label x:Name="generateQrButtonLabel" Text="Generate QR Code" TextColor="White" FontSize="16" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

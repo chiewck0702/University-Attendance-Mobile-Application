@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             x:Class="FYP_App.Views.ScanQrPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <Frame BackgroundColor="#2196F3" HeightRequest="50" Padding="5">
+                <Image x:Name="backIcon" Margin="10, 0" VerticalOptions="Center" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapBackButton_Tapped" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Frame>
+
+            <Label  Text="Scan QR Code" TextColor="Black" FontAttributes="Bold" FontSize="25" HorizontalOptions="Center" Margin="30"/>
+
+            <Frame Margin="20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout>
+                    <ActivityIndicator x:Name="loadingIndicator"
+                        IsVisible="False"
+                        IsRunning="False"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                    
+                    <zxing:ZXingScannerView x:Name="QRscanner"
+                        OnScanResult="QRscanner_OnScanResult"
+                        IsScanning="true"
+                        VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FYP_App.Views.StudentList.DisplayUploadedStudentList">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <Frame BackgroundColor="#2196F3" HeightRequest="50" Padding="5">
+                <Image x:Name="backIcon" Margin="10, 0" VerticalOptions="Center" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapBackButton_Tapped" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Frame>
+
+            <Label Text="Upload Student List" TextColor="Black" FontAttributes="Bold" FontSize="25" HorizontalOptions="Center" Margin="30, 30, 30, 20"/>
+
+            <Grid>
+                <ScrollView x:Name="contentScrollview" Scrolled="ScrollView_Scrolled">
+                    <Grid VerticalOptions="Start" RowSpacing="10" ColumnDefinitions="*, 1.5*" Margin="20" RowDefinitions="Auto, Auto, Auto, Auto, 800, Auto">
+                        <Label Text="Subject code: " TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                        <Label x:Name="subjectIdLabel" TextColor="Black" FontSize="18" Grid.Column="1"/>
+
+                        <Label Text="Subject name:" TextColor="Black" FontSize="18" Grid.Row="1"/>
+                        <StackLayout Grid.Row="1" Grid.Column="1">
+                            <Label x:Name="subjectNameLabel" LineBreakMode="WordWrap" TextColor="Black" FontSize="18"/>
+                        </StackLayout>
+
+                        <Frame Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="#7192F1" Padding="10">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapChooseAnotherFile_Tapped" NumberOfTapsRequired="1"/>
+                            </Frame.GestureRecognizers>
+                            <Label Text="Choose Another File" TextColor="White" FontSize="16" HorizontalTextAlignment="Center"/>
+                        </Frame>
+
+                        <Label Text="Student list:" TextColor="Black" FontSize="18" Grid.Row="3"/>
+                        <StackLayout Grid.Row="3" Grid.Column="1">
+                            <Frame BackgroundColor="#FF0E00" Padding="10">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OneTapDeleteInvalidStudent_Tapped" NumberOfTapsRequired="1"/>
+                                </Frame.GestureRecognizers>
+                                <Label Text="Delete invalid Student" LineBreakMode="WordWrap" TextColor="White" FontSize="16" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                            </Frame>
+                        </StackLayout>
+
+                        <Grid Grid.Row="4" Grid.ColumnSpan="2" RowDefinitions="Auto, *, Auto">
+                            <Frame BackgroundColor="LightGray" Padding="0, 20">
+                                <Grid VerticalOptions="Center" ColumnDefinitions="0.5*, 2*, *, 0.5*, 0.5*">
+                                    <Label Text="No" FontAttributes="Bold" TextColor="Black" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Label Text="Name" FontAttributes="Bold" TextColor="Black" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1"/>
+                                    <Label Text="Student ID" FontAttributes="Bold" TextColor="Black" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2"/>
+                                    <Label Text="Class" FontAttributes="Bold" TextColor="Black" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="3"/>
+                                </Grid>
+                            </Frame>
+                            <ListView x:Name="studentListView" Grid.Row="1" HasUnevenRows="True">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Grid ColumnDefinitions="0.5*, 2*, *, 0.5*, 0.5*" RowDefinitions="Auto">
+                                                <Grid.Triggers>
+                                                    <DataTrigger TargetType="Grid" Binding="{Binding IsExist}" Value="False">
+                                                        <Setter Property="BackgroundColor" Value="#FF0E00"/>
+                                                    </DataTrigger>
+                                                </Grid.Triggers>
+                                                <Label Text="{Binding Counter}" HorizontalOptions="Center" TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                                                <Label Text="{Binding StudentName}" TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Column="1"/>
+                                                <Label Text="{Binding StudentId}" HorizontalOptions="Center" TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Column="2"/>
+                                                <Label Text="{Binding ClassName}" HorizontalOptions="Center" TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Column="3"/>
+                                                <Frame Grid.Column="4">
+                                                    <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer Tapped="TapDeleteStudent_Tapped" NumberOfTapsRequired="1"/>
+                                                    </Frame.GestureRecognizers>
+                                                    <Label Text="🗑️" TextColor="Black" FontSize="18"/>
+                                                </Frame>
+                                            </Grid>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <Label Text="*row in Red color is student that Matric No not found in the system" TextColor="Black" FontSize="18" Grid.Row="2"/>
+                        </Grid>
+
+                        <Frame Grid.Row="5" Grid.ColumnSpan="2" BackgroundColor="#37D13F" Padding="10" Margin="0">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapConfirm_Tapped" NumberOfTapsRequired="1"/>
+                            </Frame.GestureRecognizers>
+                            <Label Text="Confirm" TextColor="White" FontSize="16" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                        </Frame>
+                    </Grid>
+                </ScrollView>
+
+                <Image Margin="20" VerticalOptions="End" HorizontalOptions="End" x:Name="arrowUpIcon" IsVisible="False" WidthRequest="50" HeightRequest="50">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapArrowUp_Tapped" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FYP_App.Views.Report.FullAttendancePage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <Frame BackgroundColor="#2196F3" HeightRequest="50" Padding="5">
+                <Image x:Name="backIcon" Margin="10, 0" VerticalOptions="Center" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapBackButton_Tapped" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Frame>
+
+            <Label Text="Full Attendance Report" TextColor="Black" FontAttributes="Bold" FontSize="25" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="30, 30, 30, 20"/>
+
+            <Grid VerticalOptions="Start" ColumnDefinitions="*, 2*" Margin="20, 0" RowDefinitions="Auto, Auto">
+                <Label Text="Subject: " TextColor="Black" FontSize="18"/>
+                <Label x:Name="subjectLabel" TextColor="Black" FontSize="18" VerticalOptions="End" Grid.Column="1"/>
+
+                <Label Text="Class:" TextColor="Black" FontSize="18" Grid.Row="1"/>
+                <Picker x:Name="classPicker" Title="Select an option" SelectedIndexChanged="classPicker_SelectedIndexChanged" Grid.Row="1" Grid.Column="1"></Picker>
+            </Grid>
+
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="lectureButton" Text="Lecture" Clicked="lectureButton_Clicked" TextColor="Purple" BackgroundColor="White"/>
+                <Button x:Name="labButton" Text="Lab" Clicked="labButton_Clicked" BackgroundColor="White"/>
+            </StackLayout>
+
+            <Grid ColumnDefinitions="*, 3*, *" Margin="10, 0" RowDefinitions="Auto">
+                <Image x:Name="searchIcon" HeightRequest="40" WidthRequest="40"/>
+                <Entry x:Name="searchEntry" Placeholder="Student Name / ID" Completed="searchEntry_Completed" Grid.Column="1"/>
+            </Grid>
+
+            <ScrollView Orientation="Horizontal">
+                <StackLayout>
+                    <Frame Margin="10, 0" BackgroundColor="LightGray" Padding="0, 10">
+                        <Grid ColumnDefinitions="2*, *, 0.5*, *, 10*" RowDefinitions="Auto">
+                            <Label Text="Name" TextColor="Black" FontSize="18" HorizontalTextAlignment="Center" VerticalOptions="Center"/>
+                            <Label Text="Student ID" TextColor="Black" FontSize="18" HorizontalTextAlignment="Center" VerticalOptions="Center" Grid.Column="1"/>
+                            <Label Text="Class" TextColor="Black" FontSize="18" HorizontalTextAlignment="Center" VerticalOptions="Center" Grid.Column="2"/>
+                            <Label Text="Attendance Rate" TextColor="Black" FontSize="18" HorizontalTextAlignment="Center" VerticalOptions="Center" Grid.Column="3"/>
+
+                            <CollectionView x:Name="weekNumHeader" HeightRequest="30" Grid.Column="4">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame WidthRequest="80" Padding="0" BackgroundColor="LightGray">
+                                            <Label Text="{Binding}" TextColor="Black" FontSize="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Grid>
+                    </Frame>                    
+
+                    <ListView x:Name="nameList" HasUnevenRows="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid ColumnDefinitions="2*, *, 0.5*, *, 10*" RowDefinitions="Auto" Margin="10">
+                                        <Label Text="{Binding StudentName}" TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                                        <Label Text="{Binding StudentId}" TextColor="Black" FontSize="18" HorizontalTextAlignment="Center" VerticalOptions="Center" Grid.Column="1"/>
+                                        <Label Text="{Binding ClassName}" TextColor="Black" FontSize="18" HorizontalTextAlignment="Center" VerticalOptions="Center" Grid.Column="2"/>
+                                        <Label Text="{Binding AttendanceRate, StringFormat='{}{0:0.00}%'}" TextColor="Black" FontSize="18" HorizontalTextAlignment="Center" VerticalOptions="Center" Grid.Column="3"/>
+
+                                        <CollectionView Grid.Column="4" ItemsSource="{Binding weeklyAttendanceInfos}" HeightRequest="30">
+                                            <CollectionView.ItemsLayout>
+                                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8"/>
+                                            </CollectionView.ItemsLayout>
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Frame WidthRequest="80" Margin="0" Padding="0">
+                                                        <Frame.Triggers>
+                                                            <DataTrigger TargetType="Frame" Binding="{Binding isValid}" Value="1">
+                                                                <Setter Property="BackgroundColor" Value="#37D13F"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger TargetType="Frame" Binding="{Binding isValid}" Value="0">
+                                                                <Setter Property="BackgroundColor" Value="#FF0E00"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger TargetType="Frame" Binding="{Binding isValid}" Value="2">
+                                                                <Setter Property="BackgroundColor" Value="Yellow"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger TargetType="Frame" Binding="{Binding isValid}" Value="3">
+                                                                <Setter Property="BackgroundColor" Value="LightGray"/>
+                                                            </DataTrigger>
+                                                        </Frame.Triggers>
+                                                    </Frame>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+
+            <StackLayout VerticalOptions="End" Margin="20, 0">
+                <Label Text="Download Option:" TextColor="Black" FontSize="18"/>
+                <FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="Start" AlignItems="Center">
+                    <Button Text="Download Now" Clicked="ButtonDownloadNow_Clicked" Margin="0, 5, 10, 5" TextColor="White" BackgroundColor="Black" CornerRadius="15"/>
+                    <Button Text="Week 6 Report" Clicked="ButtonDownloadWeek6_Clicked_1" Margin="0, 5, 10, 5" TextColor="White" BackgroundColor="Black" CornerRadius="15"/>
+                    <Button Text="Week 11 Report" Clicked="ButtonDownloadWeek11_Clicked_1" TextColor="White" BackgroundColor="Black" CornerRadius="15"/>
+                </FlexLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

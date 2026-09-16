@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FYP_App.Views.ViewAttendanceDetailPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <Frame BackgroundColor="#2196F3" HeightRequest="50" Padding="5">
+                <Image x:Name="backIcon" Margin="10, 0" VerticalOptions="Center" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapBackButton_Tapped" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Frame>
+
+            <Label Text="View Attendance" TextColor="Black" FontAttributes="Bold" FontSize="25" HorizontalOptions="Center" Margin="30, 30, 30, 20"/>
+
+            <ScrollView>
+                <StackLayout>
+                    <Grid VerticalOptions="Start" ColumnDefinitions="*, 1.5*" Margin="20, 0" RowSpacing="10" RowDefinitions="Auto, Auto, Auto">
+                        <Label Text="Subject code: " TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                        <Picker x:Name="subjectPicker" Title="Select an option" SelectedIndexChanged="subjectPicker_SelectedIndexChanged" Grid.Column="1"></Picker>
+
+                        <Label Text="Subject name:" TextColor="Black" FontSize="18" Grid.Row="1"/>
+                        <Label x:Name="subjectName" TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="1" Grid.Column="1"/>
+
+                        <Label Text="Attendance rate: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="2"/>
+                        <Label x:Name="attendanceRateLabel" TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="2" Grid.Column="1"/>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="0.6*, *, 1, *" Margin="20, 0" RowSpacing="10" RowDefinitions="Auto">
+                        <Label Text="Lecture" TextColor="Black" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1"/>
+                        <Label Text="Lab" TextColor="Black" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="3"/>
+                    </Grid>
+                    <ListView x:Name="attendanceDetailListView" HasUnevenRows="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid ColumnDefinitions="0.6*, *, 1, *" RowSpacing="0" ColumnSpacing="0">
+                                        <Label Text="{Binding WeekNum, StringFormat='Week {0}'}" TextColor="Black" FontSize="20" VerticalOptions="Center"/>
+                                        <Frame Grid.Column="1" Padding="5">
+                                            <Frame.Triggers>
+                                                <DataTrigger TargetType="Frame" Binding="{Binding isValidLecture}" Value="1">
+                                                    <Setter Property="BackgroundColor" Value="#37D13F"/>
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Frame" Binding="{Binding isValidLecture}" Value="0">
+                                                    <Setter Property="BackgroundColor" Value="#FF0E00"/>
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Frame" Binding="{Binding isValidLecture}" Value="2">
+                                                    <Setter Property="BackgroundColor" Value="Yellow"/>
+                                                </DataTrigger>
+                                            </Frame.Triggers>
+                                            <Label Text="{Binding LectureLabel}" TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                                        </Frame>
+                                        <Frame Grid.Column="3" Padding="5">
+                                            <Frame.Triggers>
+                                                <DataTrigger TargetType="Frame" Binding="{Binding isValidLab}" Value="1">
+                                                    <Setter Property="BackgroundColor" Value="#37D13F"/>
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Frame" Binding="{Binding isValidLab}" Value="0">
+                                                    <Setter Property="BackgroundColor" Value="#FF0E00"/>
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Frame" Binding="{Binding isValidLab}" Value="2">
+                                                    <Setter Property="BackgroundColor" Value="Yellow"/>
+                                                </DataTrigger>
+                                            </Frame.Triggers>
+                                            <Label Text="{Binding LabLabel}" TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                                        </Frame>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+
+            <Grid VerticalOptions="EndAndExpand" ColumnDefinitions="*, *" ColumnSpacing="0">
+                <Frame BackgroundColor="White" Margin="0" BorderColor="Black" Padding="10" HeightRequest="100">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapTodayButton_Tapped" NumberOfTapsRequired="1"/>
+                    </Frame.GestureRecognizers>
+                    <Label Text="Today" TextColor="Black" FontSize="18" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                </Frame>
+                <Frame BackgroundColor="#2196F3" Grid.Column="1" Margin="0" Padding="10" HeightRequest="100">
+                    <Label Text="Detail" TextColor="White" FontSize="18" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                </Frame>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

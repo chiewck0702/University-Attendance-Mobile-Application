@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             x:Class="FYP_App.Views.UserMainPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <Frame BackgroundColor="White" HasShadow="False" MinimumHeightRequest="100" Padding="20, 10">
+                <Grid ColumnDefinitions="150, *, 50" RowDefinitions="100, *">
+                    <Image x:Name="utemLogo" VerticalOptions="Start" WidthRequest="150" HeightRequest="100" Aspect="AspectFit"/>
+                    <Image x:Name="profileLogo" Grid.Column="2" VerticalOptions="Start" HeightRequest="100">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapProfileLogo_Tapped" NumberOfTapsRequired="1">
+                            </TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <StackLayout x:Name="userDetail" Grid.Row="1" Grid.ColumnSpan="3" VerticalOptions="Start" Margin="10">
+                        <Label x:Name="userName" TextColor="Black" FontSize="18" HorizontalTextAlignment="Center"/>
+                        <Label x:Name="userId" TextColor="Black" FontSize="18" HorizontalTextAlignment="Center"/>
+                        <Label x:Name="userFaculty" TextColor="Black" FontSize="18" HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                    <Frame x:Name="Menu" Margin="0, 100, 0, 0" HorizontalOptions="End" VerticalOptions="Start" HeightRequest="50" BackgroundColor="White" Padding="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                        <Button Text="Logout" BackgroundColor="White" Clicked="ButtonLogout_Clicked" CornerRadius="0"/>
+                    </Frame>
+                </Grid>
+            </Frame>
+            <Grid>
+                <ScrollView x:Name="contentScrollview" Scrolled="ScrollView_Scrolled">
+                    <Grid>
+                        <StackLayout x:Name="studentButtonMenu" VerticalOptions="Start">
+                            <Frame BackgroundColor="LightGray" HasShadow="False" Margin="40, 0, 40, 20" Padding="30">
+                                <Grid RowSpacing="0" RowDefinitions="*, *">
+                                    <Frame Padding="0, 40, 0, 20" Margin="0">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapScanQrCode_Tapped" NumberOfTapsRequired="1">
+                                            </TapGestureRecognizer>
+                                        </Frame.GestureRecognizers>
+                                        <StackLayout HorizontalOptions="Center">
+                                            <Image x:Name="scanQr" HeightRequest="60"/>
+                                            <Label Text="Check-in Attendance" TextColor="Black" FontSize="16"/>
+                                        </StackLayout>
+                                    </Frame>
+                                    <Frame Grid.Row="1" Padding="0, 20, 0, 40" Margin="0">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapViewAttendance_Tapped" NumberOfTapsRequired="1">
+                                            </TapGestureRecognizer>
+                                        </Frame.GestureRecognizers>
+                                        <StackLayout HorizontalOptions="Center">
+                                            <Image x:Name="viewAttendance" HeightRequest="60"/>
+                                            <Label Text="View Attendance" TextColor="Black" FontSize="16"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </Grid>
+                            </Frame>
+                            <StackLayout Margin="20">
+                                <Grid ColumnDefinitions="1.5*, *">
+                                    <Label Text="My Subjects" TextColor="Black" FontSize="18"/>
+                                    <Label Text="Attendance (%)" TextColor="Black" FontSize="18" Grid.Column="1"/>
+                                </Grid>
+                                <BoxView HeightRequest="2" BackgroundColor="Black"/>
+                                <ListView x:Name="attendanceList" HasUnevenRows="True" ItemAppearing="AttendanceList_ItemAppearing">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <Grid ColumnDefinitions="2*, *" RowDefinitions="Auto" Padding="0, 10">
+                                                    <StackLayout VerticalOptions="Center">
+                                                        <Label Text="{Binding SubjectId}" FontAttributes="Bold" TextColor="Black" 
+                                               FontSize="16"/>
+                                                        <Label Text="{Binding SubjectName}" TextColor="Black" FontSize="16"/>
+                                                    </StackLayout>
+
+                                                    <AbsoluteLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
+                                                        <microcharts:ChartView x:Name="chartView" HeightRequest="80" WidthRequest="80"
+                                            AbsoluteLayout.LayoutBounds="0.5,0.5,80,80"
+                                            AbsoluteLayout.LayoutFlags="PositionProportional" />
+                                                        <Label x:Name="percentageLabel" FontSize="16" FontAttributes="Bold" 
+                                               TextColor="Black" HorizontalTextAlignment="Center" 
+                                               VerticalTextAlignment="Center" 
+                                               AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize" 
+                                               AbsoluteLayout.LayoutFlags="PositionProportional" />
+                                                    </AbsoluteLayout>
+                                                </Grid>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackLayout>
+                        </StackLayout>
+                        <Frame x:Name="lecturerButtonMenu" VerticalOptions="Start" BackgroundColor="LightGray" HasShadow="False" Margin="40" Padding="50">
+                            <Grid RowSpacing="0" RowDefinitions="*, *, *, *">
+                                <Frame Padding="0, 30" Margin="0">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapStudentAttendance_Tapped" NumberOfTapsRequired="1">
+                                        </TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout HorizontalOptions="Center">
+                                        <Image x:Name="studentAttendance" HeightRequest="60"/>
+                                        <Label Text="Manage Student Attendance" HorizontalTextAlignment="Center" TextColor="Black" FontSize="16"/>
+                                    </StackLayout>
+                                </Frame>
+                                <Frame Grid.Row="1" Padding="0, 30" Margin="0">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapLeaveProof_Tapped" NumberOfTapsRequired="1">
+                                        </TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout HorizontalOptions="Center">
+                                        <Image x:Name="leaveProof" HeightRequest="60"/>
+                                        <Label Text="Upload Student Absent Proof" HorizontalTextAlignment="Center" TextColor="Black" FontSize="16"/>
+                                    </StackLayout>
+                                </Frame>
+                                <Frame Grid.Row="2" Padding="0, 30" Margin="0">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapStudentList_Tapped" NumberOfTapsRequired="1">
+                                        </TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout HorizontalOptions="Center">
+                                        <Image x:Name="studentList" HeightRequest="60"/>
+                                        <Label Text="Upload Student List" HorizontalTextAlignment="Center" TextColor="Black" FontSize="16"/>
+                                    </StackLayout>
+                                </Frame>
+                                <Frame Grid.Row="3" Padding="0, 30" Margin="0">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapReport_Tapped" NumberOfTapsRequired="1">
+                                        </TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout HorizontalOptions="Center">
+                                        <Image x:Name="reportIcon" HeightRequest="70"/>
+                                        <Label Text="Report and Analysis" HorizontalTextAlignment="Center" TextColor="Black" FontSize="16"/>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </Frame>
+                        <Frame x:Name="adminButtonMenu" VerticalOptions="Start" BackgroundColor="LightGray" HasShadow="False" Margin="40" Padding="50">
+                            <Grid RowSpacing="0" RowDefinitions="*, *">
+                                <Frame Padding="0, 40, 0, 20" Margin="0">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapManageSubject_Tapped" NumberOfTapsRequired="1">
+                                        </TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout HorizontalOptions="Center">
+                                        <Image x:Name="manageSubject" HeightRequest="60"/>
+                                        <Label Text="Manage Subject" TextColor="Black" FontSize="16"/>
+                                    </StackLayout>
+                                </Frame>
+                                <Frame Grid.Row="1" Padding="0, 20, 0, 40" Margin="0">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapReport_Tapped" NumberOfTapsRequired="1">
+                                        </TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout HorizontalOptions="Center">
+                                        <Image x:Name="reportIcon2" HeightRequest="60"/>
+                                        <Label Text="Report and Analysis" TextColor="Black" FontSize="16"/>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </ScrollView>
+
+                <Image Margin="20" VerticalOptions="End" HorizontalOptions="End" x:Name="arrowUpIcon" IsVisible="False" WidthRequest="50" HeightRequest="50">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapArrowUp_Tapped" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

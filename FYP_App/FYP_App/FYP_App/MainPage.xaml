@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FYP_App.MainPage">
+
+    <StackLayout>
+        <Frame BackgroundColor="White" HorizontalOptions="Center" Padding="0" Margin="0, 100, 0, 10">
+            <Image x:Name="utemLogo" HeightRequest="159" WidthRequest="282"/>
+        </Frame>
+        <Frame BorderColor="Gray" Margin="20">
+            <Grid ColumnDefinitions="*, 50">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Label Text="Username: " TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                <Entry x:Name="usernameEntry" Grid.Row="1" VerticalOptions="Center"/>
+
+                <Label Text="Password: " TextColor="Black" FontSize="18" Grid.Row="2" VerticalOptions="Center"/>
+                <Entry x:Name="passwordEntry" IsPassword="True" Grid.Row="3" VerticalOptions="Center"/>
+                <Frame BackgroundColor="White" Grid.Row="3" Grid.Column="1" Padding="0" VerticalOptions="Center">
+                    <Image x:Name="passwordVisibility" WidthRequest="30" HeightRequest="30">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapPasswordVisibility_Tapped" NumberOfTapsRequired="1">
+                            </TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Frame>
+
+                <Button Text="Login" Grid.Row="4" Grid.ColumnSpan="2" Clicked="ButtonLogin_Clicked"/>
+
+                <Label Text="Forgot password" TextColor="Black" FontSize="16" TextDecorations="Underline" Grid.Row="5">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapForgotPassword_Tapped" NumberOfTapsRequired="1">
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+        </Frame>
+    </StackLayout>
+
+</ContentPage>

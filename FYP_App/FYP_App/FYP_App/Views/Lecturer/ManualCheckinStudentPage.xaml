@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FYP_App.Views.ManualCheckinStudentPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <Label Text="Manual Check-in Student Attendance" TextColor="Black" FontAttributes="Bold" FontSize="25" HorizontalOptions="Center" Margin="30"/>
+
+            <ScrollView>
+                <Grid VerticalOptions="Start" ColumnDefinitions="*, 1.5*" Margin="20, 20, 20, 0" RowSpacing="12" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+                    <StackLayout Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <Image x:Name="dateIcon" WidthRequest="50" HeightRequest="50" Margin="0, 0, 10, 0"/>
+                        <Label x:Name="todayDate" TextColor="Black" FontSize="20" VerticalOptions="Center"/>
+                    </StackLayout>
+
+                    <Label Text="Subject code: " TextColor="Black" FontSize="20" VerticalOptions="Center" Grid.Row="1"/>
+                    <Label x:Name="subjectCodeLabel" TextColor="Black" FontSize="20" VerticalOptions="Center" Grid.Row="1" Grid.Column="1"></Label>
+
+                    <Label Text="Subject name:" TextColor="Black" FontSize="20" Grid.Row="2"/>
+                    <Label x:Name="subjectNameLabel" TextColor="Black" FontSize="20" VerticalOptions="Center" Grid.Row="2" Grid.Column="1"/>
+
+                    <Label Text="Session: " TextColor="Black" FontSize="20" VerticalOptions="Center" Grid.Row="3"/>
+                    <Label x:Name="sessionLabel" TextColor="Black" FontSize="20" VerticalOptions="Center" Grid.Row="3" Grid.Column="1"/>
+
+                    <Label Text="Start time: " TextColor="Black" FontSize="20" VerticalOptions="Center" Grid.Row="5"/>
+                    <Label x:Name="startTimeLabel" TextColor="Black" FontSize="20" VerticalOptions="Center" Grid.Row="5" Grid.Column="1"/>
+
+                    <Label Text="End time: " TextColor="Black" FontSize="20" VerticalOptions="Center" Grid.Row="6"/>
+                    <Label x:Name="endTimeLabel" TextColor="Black" FontSize="20" VerticalOptions="Center" Grid.Row="6" Grid.Column="1"/>
+
+                    <Label Text="Student ID: " TextColor="Black" FontSize="20" VerticalOptions="Center" Grid.Row="7"/>
+                    <Entry x:Name="studentIdEntry" Grid.Row="7" Grid.Column="1"/>
+                    <Button Text="Search" BackgroundColor="Black" TextColor="White" CornerRadius="10" FontSize="18" Clicked="ButtonSearch_Clicked" Grid.Row="8" Grid.Column="1"/>
+
+                    <Label Text="Student Name: " TextColor="Black" FontSize="20" VerticalOptions="Center" Grid.Row="9"/>
+                    <Label x:Name="studentNameLabel" TextColor="Black" FontSize="20" VerticalOptions="Center" Grid.Row="9" Grid.Column="1"/>
+                    <Button x:Name="buttonConfirm" Text="Confirm" BackgroundColor="Green" TextColor="White" CornerRadius="10" FontSize="18" Clicked="ButtonConfirm_Clicked" Grid.Row="10" Grid.Column="1"/>
+                </Grid>
+            </ScrollView>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

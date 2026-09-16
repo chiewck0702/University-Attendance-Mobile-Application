@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FYP_App.Views.ReportPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <Frame BackgroundColor="#2196F3" HeightRequest="50" Padding="5">
+                <Image x:Name="backIcon" Margin="10, 0" VerticalOptions="Center" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapBackButton_Tapped" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Frame>
+
+            <Label Text="Report and Analysis" TextColor="Black" FontAttributes="Bold" FontSize="25" HorizontalOptions="Center" Margin="30"/>
+
+            <Grid ColumnDefinitions="*, 3*, *" Margin="20" HeightRequest="80">
+                <Image x:Name="searchIcon" HeightRequest="40" WidthRequest="40"/>
+                <Entry x:Name="searchEntry" Placeholder="Subject name / code" Completed="searchEntry_Completed" Grid.Column="1"/>
+            </Grid>
+
+            <ListView x:Name="subjectListView" Margin="20" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame BorderColor="Black" Padding="15" Margin="0, 0, 0, 15">
+                                <Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto, Auto, 60">
+                                    <Label Text="{Binding SubjectId}" TextColor="Black" FontAttributes="Bold" FontSize="20" Grid.ColumnSpan="2"/>
+                                    <Label Text="{Binding SubjectName}" FontSize="20" Grid.Row="1" Grid.ColumnSpan="2"/>
+                                    <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
+                                        <Image Source="{Binding icon}" HeightRequest="35" WidthRequest="35"/>
+                                        <Label Text="{Binding PeopleNum}" TextColor="Black" FontSize="20"/>
+                                    </StackLayout>
+                                    <Button Text="Low Attendance List" BackgroundColor="White" BorderColor="Black" BorderWidth="1" CornerRadius="15" Clicked="ButtonLowAttendance_Clicked" Grid.Row="3"/>
+                                    <Button Text="Full Attendance Report"  Clicked="ButtonFullAttendance_Clicked" TextColor="White" BackgroundColor="Black" BorderColor="White" BorderWidth="1" CornerRadius="15" Grid.Row="3" Grid.Column="1"/>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

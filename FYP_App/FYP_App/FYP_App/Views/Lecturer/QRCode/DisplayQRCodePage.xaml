@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             
+             x:Class="FYP_App.Views.DisplayQRCodePage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <Label Text="Student Attendance QR Code" TextColor="Black" FontAttributes="Bold" FontSize="25" HorizontalOptions="Center" Margin="30"/>
+
+            <ScrollView>
+                <StackLayout>
+                    <Grid VerticalOptions="Start" ColumnDefinitions="*, 1.5*" Margin="20, 20, 20, 0" RowSpacing="12" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+                        <StackLayout Grid.ColumnSpan="2" Orientation="Horizontal">
+                            <Image x:Name="dateIcon" WidthRequest="50" HeightRequest="50" Margin="0, 0, 10, 0"/>
+                            <Label x:Name="todayDate" TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                        </StackLayout>
+
+                        <Label Text="Subject code: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="1"/>
+                        <Label x:Name="subjectCodeLabel" TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="1" Grid.Column="1"></Label>
+
+                        <Label Text="Subject name:" TextColor="Black" FontSize="18" Grid.Row="2"/>
+                        <Label x:Name="subjectNameLabel" TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="2" Grid.Column="1"/>
+
+                        <Label Text="Session: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="3"/>
+                        <Label x:Name="sessionLabel" TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="3" Grid.Column="1"/>
+
+                        <Label Text="Class: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="4"/>
+                        <Label x:Name="classLabel" TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="4" Grid.Column="1"/>
+
+                        <Label Text="Start time: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="5"/>
+                        <Label x:Name="startTimeLabel" TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="5" Grid.Column="1"/>
+
+                        <Label Text="End time: " TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="6"/>
+                        <Label x:Name="endTimeLabel" TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="6" Grid.Column="1"/>
+                    </Grid>
+                    <StackLayout x:Name="qrContainer" Margin="0">
+                        <zxing:ZXingBarcodeImageView 
+                    x:Name="ZXingQrImage"
+                    IsVisible="True"
+                    HeightRequest="200"
+                    WidthRequest="200"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    BarcodeFormat="QR_CODE"
+                    BarcodeValue="default">
+                            <zxing:ZXingBarcodeImageView.BarcodeOptions>
+                                <zxcm:EncodingOptions Width="300" Height="300"/>
+                            </zxing:ZXingBarcodeImageView.BarcodeOptions>
+                        </zxing:ZXingBarcodeImageView>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="Center" Margin="0">
+                        <Button Text="Download as PNG" Clicked="ButtonDownloadPNG_Clicked" CornerRadius="10" BackgroundColor="Black" TextColor="White" FontSize="18" WidthRequest="200"/>
+                    </StackLayout>
+                    <Grid Margin="20, 10, 20, 5" RowDefinitions="60">
+                        <Frame BackgroundColor="#7192F1" Padding="10">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapViewAttendedStudent_Tapped" NumberOfTapsRequired="1"/>
+                            </Frame.GestureRecognizers>
+                            <Label Text="View Attended Student" TextColor="White" FontSize="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                        </Frame>
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

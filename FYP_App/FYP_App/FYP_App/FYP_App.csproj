@@ -1,0 +1,139 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Image\Add icon.png" />
+    <None Remove="Image\Arrow left.png" />
+    <None Remove="Image\Arrow up.png" />
+    <None Remove="Image\Attendance.png" />
+    <None Remove="Image\Date icon.png" />
+    <None Remove="Image\Delete icon.png" />
+    <None Remove="Image\Edit icon.png" />
+    <None Remove="Image\Edit.png" />
+    <None Remove="Image\Eye off.png" />
+    <None Remove="Image\Eye.png" />
+    <None Remove="Image\Info icon.png" />
+    <None Remove="Image\Leave Proof.png" />
+    <None Remove="Image\People icon.png" />
+    <None Remove="Image\Profile icon.png" />
+    <None Remove="Image\QR code icon.png" />
+    <None Remove="Image\Refresh icon.png" />
+    <None Remove="Image\Report.png" />
+    <None Remove="Image\Scan QR.png" />
+    <None Remove="Image\Search icon.png" />
+    <None Remove="Image\Student Attendance.png" />
+    <None Remove="Image\Student list.png" />
+    <None Remove="Image\Subject.png" />
+    <None Remove="Image\UTEM logo 1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Image\Add icon.png" />
+    <EmbeddedResource Include="Image\Arrow left.png" />
+    <EmbeddedResource Include="Image\Arrow up.png" />
+    <EmbeddedResource Include="Image\Attendance.png" />
+    <EmbeddedResource Include="Image\Date icon.png" />
+    <EmbeddedResource Include="Image\Delete icon.png" />
+    <EmbeddedResource Include="Image\done_icon.png" />
+    <EmbeddedResource Include="Image\Edit icon.png" />
+    <EmbeddedResource Include="Image\Edit.png" />
+    <EmbeddedResource Include="Image\Eye off.png" />
+    <EmbeddedResource Include="Image\Eye.png" />
+    <EmbeddedResource Include="Image\Info icon.png" />
+    <EmbeddedResource Include="Image\Leave Proof.png" />
+    <EmbeddedResource Include="Image\People icon.png" />
+    <EmbeddedResource Include="Image\Profile icon.png" />
+    <EmbeddedResource Include="Image\QR code icon.png" />
+    <EmbeddedResource Include="Image\red_dot.png" />
+    <EmbeddedResource Include="Image\Refresh icon.png" />
+    <EmbeddedResource Include="Image\Report.png" />
+    <EmbeddedResource Include="Image\Scan QR.png" />
+    <EmbeddedResource Include="Image\Search icon.png" />
+    <EmbeddedResource Include="Image\Student Attendance.png" />
+    <EmbeddedResource Include="Image\Student list.png" />
+    <EmbeddedResource Include="Image\Subject.png" />
+    <EmbeddedResource Include="Image\UTEM logo 1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microcharts.Forms" Version="0.9.5.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
+    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\ForgotPasswordPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Lecturer\AbsentProof\DisplayStudentAbsentProof.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Lecturer\QRCode\DisplayQRCodePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Lecturer\QRCode\GenerateQrCodePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Lecturer\ManageStudentAttendancePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Admin\ManageSubjectPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Lecturer\ManualCheckinStudentPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ReportPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Report\FullAttendancePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Report\LowAttendancePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Student\ScanQrPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Lecturer\StudentList\DisplayUploadedStudentList.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Admin\Subject\AddSubjectPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Admin\Subject\EditSubjectPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Admin\Subject\StaticViewSubjectDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Lecturer\AbsentProof\UploadStudentLeaveProofPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Lecturer\StudentList\UploadStudentListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\UserMainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Student\ViewAttendanceDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Student\ViewAttendancePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

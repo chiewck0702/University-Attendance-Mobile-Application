@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FYP_App.Views.ManageStudentAttendancePage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <Frame BackgroundColor="#2196F3" HeightRequest="50" Padding="5">
+                <Image x:Name="backIcon" Margin="10, 0" VerticalOptions="Center" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapBackButton_Tapped" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Frame>
+            <Label Text="Manage Student Attendance" HorizontalTextAlignment="Center" TextColor="Black" FontAttributes="Bold" FontSize="25" HorizontalOptions="Center" Margin="30, 30, 30, 20"/>
+
+            <StackLayout Margin="20, 0" Orientation="Horizontal">
+                <Image x:Name="dateIcon" WidthRequest="50" HeightRequest="50" Margin="0, 0, 10, 0"/>
+                <Label x:Name="todayDate" TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <Grid>
+                <ScrollView Margin="20, 0" x:Name="contentScrollview" Scrolled="ScrollView_Scrolled">
+                    <StackLayout>
+                        <Grid ColumnDefinitions="*, 1.5*" RowDefinitions="Auto, Auto">
+                            <Label Text="Subject code: " TextColor="Black" FontSize="18" VerticalOptions="Center"/>
+                            <Picker x:Name="subjectPicker" Title="Select an option" SelectedIndexChanged="subjectPicker_SelectedIndexChanged" Grid.Column="1"></Picker>
+
+                            <Label Text="Subject name:" TextColor="Black" FontSize="18" Grid.Row="1"/>
+                            <Label x:Name="subjectName" TextColor="Black" FontSize="18" VerticalOptions="Center" Grid.Row="1" Grid.Column="1"/>
+                        </Grid>
+
+                        <Frame BackgroundColor="#7192F1" Padding="10">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGenerateQrCodeButton_Tapped" NumberOfTapsRequired="1"/>
+                            </Frame.GestureRecognizers>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                <Image x:Name="qrIcon" WidthRequest="45" HeightRequest="45" Margin="10, 0"/>
+                                <Label x:Name="generateQrButtonLabel" Text="Generate QR Code" TextColor="White" FontSize="16" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame x:Name="activeSessionFrame" Margin="30, 10" BackgroundColor="LightGray" Padding="10">
+                            <Label x:Name="activeSessionLabel" Text="No Active Session" FontSize="16" HorizontalTextAlignment="Center"/>
+                        </Frame>
+
+                        <Frame x:Name="attendedStudentList" Padding="5, 10">
+                            <StackLayout>
+                                <Grid ColumnDefinitions="4*, *" RowDefinitions="Auto">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Current Attendees" FontSize="16" VerticalOptions="Center" Margin="0, 0, 5, 0"/>
+                                        <Image x:Name="addIcon" WidthRequest="35" HeightRequest="35">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="TapAddButton_Tapped" NumberOfTapsRequired="1"/>
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                        <Image x:Name="refreshIcon" WidthRequest="35" HeightRequest="35">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="TapRefreshButton_Tapped" NumberOfTapsRequired="1"/>
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Grid.Column="1">
+                                        <Image x:Name="peopleIcon" WidthRequest="35" HeightRequest="35"/>
+                                        <Label x:Name="studentNum" FontSize="16" VerticalOptions="Center" Margin="5"/>
+                                    </StackLayout>
+                                </Grid>
+                                <ScrollView Orientation="Horizontal">
+                                    <StackLayout Spacing="0">
+                                        <Grid ColumnDefinitions="60, 120, 150, 80, 80, 200, 50" BackgroundColor="LightGray" RowDefinitions="60">
+                                            <Label Text="No" FontSize="16" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                            <Label Text="Student ID" FontSize="16" Grid.Column="1" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                            <Label Text="Student Name" FontSize="16" Grid.Column="2" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                            <Label Text="Class" FontSize="16" Grid.Column="3" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                            <Label Text="Time" FontSize="16" Grid.Column="4" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                            <Label Text="Location" FontSize="16" Grid.Column="5" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                        </Grid>
+                                        <ListView HasUnevenRows="True" x:Name="studentListView" RowHeight="60">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ViewCell>
+                                                        <Grid ColumnDefinitions="60, 120, 150, 80, 80, 200, 50">
+                                                            <Grid.Triggers>
+                                                                <DataTrigger TargetType="Grid" Binding="{Binding IsValid}" Value="0">
+                                                                    <Setter Property="BackgroundColor" Value="#FFA49F" />
+                                                                </DataTrigger>
+                                                            </Grid.Triggers>
+                                                            <Label Text="{Binding Counter}" FontSize="14" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                                            <Label Text="{Binding StudentId}" FontSize="14" Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                                            <Label Text="{Binding StudentName}" FontSize="14" Grid.Column="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                                                                <Label.Triggers>
+                                                                    <DataTrigger TargetType="Label" Binding="{Binding IsRegisteredStudent}" Value="0">
+                                                                        <Setter Property="TextColor" Value="Red"/>
+                                                                    </DataTrigger>
+                                                                </Label.Triggers>
+                                                            </Label>
+                                                            <Label Text="{Binding ClassName}" FontSize="14" Grid.Column="3" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                                            <Label Text="{Binding AttendanceTime}" FontSize="14" Grid.Column="4" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                                            <Label Text="{Binding Location}" FontSize="14" Grid.Column="5" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                                            <Image Source="{Binding icon}" x:Name="editStudentAttendValidality" WidthRequest="50" HeightRequest="50" Grid.Column="6">
+                                                                <Image.GestureRecognizers>
+                                                                    <TapGestureRecognizer Tapped="TapEditStudentAttendValid_Tapped" NumberOfTapsRequired="1">
+                                                                    </TapGestureRecognizer>
+                                                                </Image.GestureRecognizers>
+                                                            </Image>
+                                                        </Grid>
+                                                    </ViewCell>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+
+                                    </StackLayout>
+                                </ScrollView>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </ScrollView>
+
+                <Image Margin="20" VerticalOptions="End" HorizontalOptions="End" x:Name="arrowUpIcon" IsVisible="False" WidthRequest="50" HeightRequest="50">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapArrowUp_Tapped" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>                       
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
