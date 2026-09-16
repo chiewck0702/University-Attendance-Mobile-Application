@@ -38,6 +38,15 @@ Tech Stack:
 
 --- 
 
+## 🗄️ Database Setup
+
+1. Open SQL Server Management Studio (SSMS).
+2. Create a new database named `UTeM Student Attendance App`.
+3. Open `Database/UniversityAttendanceDB.sql` and execute it to create all tables, keys, and indexes.
+4. (Optional) Update the connection string in `appsettings.json` to match your SQL Server instance.
+
+---
+
 ## 🔧 Configuration (Required Before Running)
 ### ⚠️ 1. Database Connection String
 Open `WebApi2/WebApi2/appsettings.json` and modify `DefaultConnection`:
