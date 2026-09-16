@@ -36,6 +36,8 @@ Tech Stack:
 | :--- | :--- |
 | Attendance Report	| Generate and view attendance statistics reports| 
 
+--- 
+
 ## 🔧 Configuration (Required Before Running)
 ### ⚠️ 1. Database Connection String
 Open `WebApi2/WebApi2/appsettings.json` and modify `DefaultConnection`:
