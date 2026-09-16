@@ -2,14 +2,10 @@
 A university student attendance management mobile app developed as a Diploma Final Year Project (FYP).
 
 Tech Stack:
-
-Mobile: Xamarin (Android)
-
-Backend: ASP.NET Core Web API
-
-Database: SQL Server
-
-Email Service: MailKit (SMTP)
+- Mobile: Xamarin (Android)
+- Backend: ASP.NET Core Web API
+- Database: SQL Server
+- Email Service: MailKit (SMTP)
 
 ---
 ## ✨ Core Features
